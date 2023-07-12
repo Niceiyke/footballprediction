@@ -13,3 +13,14 @@ def save_obj(file_path,obj):
 
     except Exception as e:
         print(e)
+
+
+def load_obj(file_path):
+
+    try:
+        with open(file_path,'rb')as file_obj:
+            print('loaded')
+            return dill.load(file_obj)
+
+    except Exception as e:
+        print(e)

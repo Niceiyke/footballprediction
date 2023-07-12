@@ -7,7 +7,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 
-from backend.utils import save_obj
+
 
 
 @dataclass
@@ -32,7 +32,7 @@ class FitTransform:
 
         cat_pipeline = Pipeline(
             steps=[
-                ("one_hot_encoder", OrdinalEncoder()),
+                ("ordinal_encoder", OrdinalEncoder()),
             ]
         )
 
@@ -42,10 +42,5 @@ class FitTransform:
                 ("cat_pipelines", cat_pipeline, self.config.categorical_columns),
             ]
         )
-
-
-
-        save_obj(self.config.processor_path,preprocessor)
-
 
         return preprocessor

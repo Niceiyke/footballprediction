@@ -22,7 +22,7 @@ class ModelTrainer:
 
     def train_model(self,xtrain,ytrain,xtest,ytest):
 
-        model=self.config.model.fit(xtrain,ytrain)
+        model=self.config.model.fit(xtrain,ytrain.values.ravel())
 
 
 

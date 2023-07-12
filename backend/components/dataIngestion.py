@@ -20,7 +20,7 @@ class DataIngestion:
         print("started")
 
         df = pd.read_csv(
-            "/home/niceiyke/Documents/WORK_FOLDER/footballprediction/datasets/epl.csv",
+            "datasets/epl.csv",
             low_memory=False,
         )
 

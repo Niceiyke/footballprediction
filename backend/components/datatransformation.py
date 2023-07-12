@@ -2,20 +2,21 @@ import os
 from dataclasses import dataclass
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import StandardScaler, OneHotEncoder, OrdinalEncoder
-from sklearn.compose import ColumnTransformer
-from sklearn.impute import SimpleImputer
-from sklearn.pipeline import Pipeline
-
-from backend.pipeplines.fit_transform_model_pipeline import FitTransform
+from backend.pipeplines.transform_pipeline import FitTransform
 from backend.components.modelTrainer import ModelTrainer
+
+from backend.utils import save_obj
 
 
 @dataclass
 class DataTransformationConfig:
     preprocessor=FitTransform()
-    modeltrainer=ModelTrainer()
     preprocessor=preprocessor.fit_transform_data()
+    preprocessor_path='artifacts\models\preprocessor.pkl'
+    model_path='artifacts\models\model.pkl'
+    
+
+    modeltrainer=ModelTrainer()
     train_data = os.path.join("artifacts", "train.csv")
     test_data = os.path.join("artifacts", "test.csv")
     predictors = [
@@ -32,7 +33,6 @@ class DataTransformation:
     def __init__(self):
         self.config = DataTransformationConfig()
         self.labels= [
-                "date",
                 "hometeam",
                 "awayteam",
                 "b365h",
@@ -42,6 +42,7 @@ class DataTransformation:
             ]
 
     def process_data(self,train_df,test_df):
+        train_df = pd.read_csv(self.config.train_data, low_memory=False)
         train_df.columns = [dfc.lower() for dfc in train_df.columns]
         train_df = train_df[self.labels].copy()
         train_df["target"] = ((train_df["ftr"] == "H")).astype(int)
@@ -65,7 +66,6 @@ class DataTransformation:
         xtest = test[self.config.predictors]
         ytest = test[self.config.target]
 
-
         xtrain_df=self.config.preprocessor.fit_transform(xtrain)
         xtest_df=self.config.preprocessor.transform(xtest)
         
@@ -76,6 +76,7 @@ class DataTransformation:
         self.config.modeltrainer.train_model(xtrain=xtest_array,ytrain=ytrain,xtest=xtest_array,ytest=ytest)
 
         print('fitting done')
+        save_obj(self.config.preprocessor_path,self.config.preprocessor)
 
         return xtrain_array,xtest_array,ytrain,ytest
 
