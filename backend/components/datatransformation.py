@@ -23,6 +23,7 @@ class DataTransformationConfig:
         "b365h",
         "b365d",
         "b365a",
+        'b365>2.5','b365<2.5'
     ]
     target = ["target"]
 
@@ -36,6 +37,7 @@ class DataTransformation:
             "b365h",
             "b365d",
             "b365a",
+            'b365>2.5','b365<2.5',
             "ftr",
         ]
 

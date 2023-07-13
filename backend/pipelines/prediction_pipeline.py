@@ -26,10 +26,6 @@ class PredictionPipelineConfig:
     ]
 
 
-
-    
-    
-
 class Predict:
     def __init__(self,data) -> None:
         self.config =PredictionPipelineConfig()
@@ -47,7 +43,7 @@ class Predict:
 
             self.df.insert(5,'predictions',pred)
 
-            print(self.df.head())
+            print(self.df.head(30))
 
             return pred
         except Exception as e:

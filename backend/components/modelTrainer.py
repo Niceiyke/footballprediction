@@ -14,7 +14,7 @@ from backend.utils import save_obj
 
 @dataclass
 class ModelTrainerConfig:
-    model=LogisticRegression(C=7,solver='liblinear')
+    model=LogisticRegression()
     model_path= os.path.join('artifacts/models','model.pkl')
     os.makedirs('artifacts/models',exist_ok=True)
     

@@ -30,6 +30,7 @@ class DataIngestion:
             )
 
             df["date"] = pd.to_datetime(df["date"], format="mixed", dayfirst=True)
+            df.sort_values(by='date',ascending=True,inplace=True)
 
             train = df[df["date"] < "2022-09-01"]
             test = df[df["date"] > "2022-09-01"]

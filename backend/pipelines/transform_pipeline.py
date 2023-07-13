@@ -5,7 +5,7 @@ from backend.logger import logging
 from dataclasses import dataclass
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import OrdinalEncoder
+from sklearn.preprocessing import OrdinalEncoder,StandardScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
@@ -18,7 +18,7 @@ from backend.utils import save_obj
 
 @dataclass
 class FitTransformConfig:
-    numerical_columns = ["b365h", "b365d", "b365a"]
+    numerical_columns = ["b365h", "b365d", "b365a",'b365>2.5','b365<2.5']
     categorical_columns = ["hometeam", "awayteam"]
     processor_path= os.path.join('artifacts/models','preprocessor.pkl')
     os.makedirs('artifacts/models',exist_ok=True)
@@ -35,7 +35,8 @@ class FitTransform:
             logging.info('pipeline fitting initiated')
             num_pipeline = Pipeline(
             steps=[
-                ("imputer", SimpleImputer(strategy="mean")),
+                ("imputer", SimpleImputer(strategy="median")),
+                ('scaler',StandardScaler())
                 ]
             )
 
