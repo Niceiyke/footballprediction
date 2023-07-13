@@ -1,4 +1,8 @@
 import os
+import sys
+from backend.exception import CustomException
+from backend.logger import logging
+
 from dataclasses import dataclass
 
 import pandas as pd
@@ -22,31 +26,38 @@ class ModelTrainer:
 
     def train_model(self,xtrain,ytrain,xtest,ytest):
 
-        model=self.config.model.fit(xtrain,ytrain.values.ravel())
+        try:
+            logging.info('data model training initiated')
 
+            model=self.config.model.fit(xtrain,ytrain.values.ravel())
 
+            logging.info('data model training completed')
 
-        _,precision=self.evaluate_model(model=model,x=xtest,y=ytest)
+            accuracy,precision=self.evaluate_model(model=model,x=xtest,y=ytest)
 
-        if precision >80:
-            save_obj(self.config.model_path,model)
+            if precision >65:
+                save_obj(self.config.model_path,model)
+                logging.info(f'data model object saving completed with a precision of {precision} and accuracy of {accuracy}')
 
-        print('training done')
-
-        return model
+            return model
+        
+        except Exception as e:
+            raise CustomException(e,sys)
 
 
     def evaluate_model(self,model,x,y):
-        prediction=model.predict(x)
-        accuracy=accuracy_score(y_true=y,y_pred=prediction)*100
-        precision=precision_score(y_true=y,y_pred=prediction)*100
+        try:
+            logging.info('model evaluation initiated')
+            prediction=model.predict(x)
+            accuracy=round(accuracy_score(y_true=y,y_pred=prediction)*100,2)
+            precision=round(precision_score(y_true=y,y_pred=prediction)*100,2)
 
-        print('evaluation done')
+            print(accuracy,precision)
+            logging.info('model evaluation completed')
 
-
-        print(accuracy,precision)
+            return accuracy,precision
         
-
-        return accuracy,precision
+        except Exception as e:
+            raise CustomException(e,sys)
 
         

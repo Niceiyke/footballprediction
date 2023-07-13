@@ -1,5 +1,7 @@
 import os
+import sys
 import dill
+from backend.exception import CustomException
 
 def save_obj(file_path,obj):
 
@@ -12,7 +14,7 @@ def save_obj(file_path,obj):
             dill.dump(obj,file_obj)
 
     except Exception as e:
-        print(e)
+        raise CustomException(e,sys)
 
 
 def load_obj(file_path):
@@ -23,4 +25,4 @@ def load_obj(file_path):
             return dill.load(file_obj)
 
     except Exception as e:
-        print(e)
+        raise CustomException(e,sys)

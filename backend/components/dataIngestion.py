@@ -1,4 +1,7 @@
 import os
+import sys
+from backend.exception import CustomException
+from backend.logger import logging
 import pandas as pd
 from dataclasses import dataclass
 from backend.components.datatransformation import DataTransformation
@@ -17,26 +20,31 @@ class DataIngestion:
         self.config = DataIngestionConfig()
 
     def initiate_data_ingestion(self):
-        print("started")
+       
+       try:
+            logging.info('dataingestion initiated')
 
-        df = pd.read_csv(
-            "datasets/epl.csv",
-            low_memory=False,
-        )
+            df = pd.read_csv(
+                "datasets/epl.csv",
+                low_memory=False,
+            )
 
-        df["date"] = pd.to_datetime(df["date"], format="mixed", dayfirst=True)
+            df["date"] = pd.to_datetime(df["date"], format="mixed", dayfirst=True)
 
-        train = df[df["date"] < "2022-09-01"]
-        test = df[df["date"] > "2022-09-01"]
+            train = df[df["date"] < "2022-09-01"]
+            test = df[df["date"] > "2022-09-01"]
 
-        train.to_csv(self.config.train_data_path, index=False, header=True)
-        test.to_csv(self.config.test_data_path, index=False, header=True)
+            train.to_csv(self.config.train_data_path, index=False, header=True)
+            test.to_csv(self.config.test_data_path, index=False, header=True)
 
-        print('dataingestation done')
+            logging.info('dataingestion completed')
 
-        self.config.data_transform.process_data(train_df=train, test_df=test)
+            self.config.data_transform.process_data(train_df=train, test_df=test)
 
-        print("done")
+            return train,test
+       
+       except Exception as e:
+           raise CustomException(e,sys)
 
 
 if __name__ == "__main__":

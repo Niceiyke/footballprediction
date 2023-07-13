@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request
 import pandas as pd
-from backend.pipeplines.csvTransformer import transformCSV
+from backend.pipelines.csvTransformer import transformCSV
 
 app =Flask(__name__)
 

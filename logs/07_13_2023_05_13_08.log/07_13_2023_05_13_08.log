@@ -1,0 +1,13 @@
+[ 2023-07-13 05:13:09,244 ] 35 root - INFO - pipeline fitting initiated
+[ 2023-07-13 05:13:09,245 ] 56 root - INFO - pipeline fitting completed
+[ 2023-07-13 05:13:09,246 ] 25 root - INFO - dataingestion initiated
+[ 2023-07-13 05:13:09,642 ] 40 root - INFO - dataingestion completed
+[ 2023-07-13 05:13:09,642 ] 44 root - INFO - preprocessing of data initiated
+[ 2023-07-13 05:13:09,709 ] 57 root - INFO - preprocessing of data completed
+[ 2023-07-13 05:13:09,709 ] 68 root - INFO - data transform initiated
+[ 2023-07-13 05:13:09,729 ] 76 root - INFO - data transform completed
+[ 2023-07-13 05:13:09,729 ] 30 root - INFO - data model training initiated
+[ 2023-07-13 05:13:09,737 ] 34 root - INFO - data model training completed
+[ 2023-07-13 05:13:09,738 ] 50 root - INFO - model evaluation initiated
+[ 2023-07-13 05:13:09,770 ] 56 root - INFO - model evaluation completed
+[ 2023-07-13 05:13:09,772 ] 40 root - INFO - data model object saving completed with a precision of 68.79623402824478
