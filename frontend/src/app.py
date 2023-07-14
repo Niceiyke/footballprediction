@@ -1,18 +1,9 @@
-from flask import Flask,render_template,request
-import pandas as pd
-from backend.pipelines.csvTransformer import transformCSV
+from flask import Flask
+from sites.routes import site
 
 app =Flask(__name__)
 
+app.register_blueprint(site)
 
-
-
-
-@app.route("/predict",methods=['GET', 'POST'])
-def home():
-    if request.method=='POST':
-        file=request.files['file']
-        df=pd.read_csv(file)
-        data=transformCSV()
-   
-    return render_template('index.html')
+if __name__=='__main__':
+    app.run(debug=True)

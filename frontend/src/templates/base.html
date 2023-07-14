@@ -1,0 +1,22 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football PREDICTION</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='bootstrap/css/bootstrap.css')}}">
+</head>
+<body>
+    <div class="container">
+
+        {% include 'navbar.html' %}
+
+        {% block content %}
+
+        {% endblock %}
+
+    </div>
+
+
+    <script src="{{url_for('static', filename='bootstrap/js/bootstrap.js')}}"></script>
+</body>
+</html>

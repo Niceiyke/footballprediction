@@ -1,18 +1,22 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Football PREDICTION</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/output.css')}}">
-</head>
-<body>
-    <p class="text-red-400 text-4xl">welcome to my site</p>
-    <div>
-       <form method=post enctype=multipart/form-data>
-      <input type=file name=file>
-      <input type=submit value=Upload>
-    </form>
-    </div>
-        
-</body>
-</html>
+{% extends 'base.html' %}
+
+
+
+{% block content%}
+<div class=" container mt-4">
+    <div class="row  ">
+        <div class="col-6 col-md-2 text-bg-secondary">
+            <h3>Sidebar</h3>
+            <ul>
+                <li>Premier league</li>
+                <li>Championship</li>
+                <li>Bundesliga</li>
+                <li>La liga</li>
+                <li>Seria A</li>
+            </ul>
+        </div>
+        <div class="text-center col-md-10">.col-md-8</div>
+      </div>
+</div>
+
+{% endblock%}
