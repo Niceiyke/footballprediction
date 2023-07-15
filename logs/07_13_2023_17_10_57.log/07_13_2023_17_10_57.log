@@ -1,7 +1,0 @@
-[ 2023-07-13 17:10:58,507 ] 35 root - INFO - pipeline fitting initiated
-[ 2023-07-13 17:10:58,508 ] 56 root - INFO - pipeline fitting completed
-[ 2023-07-13 17:10:58,509 ] 25 root - INFO - dataingestion initiated
-[ 2023-07-13 17:10:58,983 ] 41 root - INFO - dataingestion completed
-[ 2023-07-13 17:10:58,983 ] 44 root - INFO - preprocessing of data initiated
-[ 2023-07-13 17:10:59,126 ] 57 root - INFO - preprocessing of data completed
-[ 2023-07-13 17:10:59,126 ] 68 root - INFO - data transform initiated
