@@ -25,7 +25,7 @@ class DataIngestion:
             logging.info('dataingestion initiated')
 
             df = pd.read_csv(
-                "datasets/epl.csv",
+                "datasets/epl .csv",
                 low_memory=False,
             )
 
