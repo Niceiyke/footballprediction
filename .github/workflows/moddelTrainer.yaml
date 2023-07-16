@@ -28,7 +28,7 @@ jobs:
 
     - name: run main scripts
       run: |
-        python backend/components/dataIngestion.py
+        python main.py
 
     - name: Commit files
       run: |

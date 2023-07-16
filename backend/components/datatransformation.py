@@ -54,7 +54,7 @@ class DataTransformation:
             test_df.columns = [dfc.lower() for dfc in test_df.columns]
             test_df = test_df[self.labels].copy()
             test_df["target"] = ((test_df["ftr"] == "H")).astype(int)
-            test_df = train_df.dropna()
+            test_df = test_df.dropna()
 
             logging.info('preprocessing of data completed')
 

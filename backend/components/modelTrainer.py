@@ -9,7 +9,7 @@ import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score,precision_score
 
-from backend.utils import save_obj
+from backend.utils import save_obj,load_obj
 
 
 @dataclass
@@ -33,7 +33,11 @@ class ModelTrainer:
 
             logging.info('data model training completed')
 
+            accuracyt,precisiont=self.evaluate_model(model=model,x=xtrain,y=ytrain)
             accuracy,precision=self.evaluate_model(model=model,x=xtest,y=ytest)
+
+
+
 
             if precision >65:
                 save_obj(self.config.model_path,model)
