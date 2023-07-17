@@ -15,14 +15,15 @@ from backend.utils import save_obj,load_obj
 @dataclass
 class ModelTrainerConfig:
     model=LogisticRegression()
-    model_path= os.path.join('artifacts/models','model.pkl')
     os.makedirs('artifacts/models',exist_ok=True)
     
     
 
 class ModelTrainer:
-    def __init__(self) -> None:
+    def __init__(self,league) -> None:
+        self.league=league
         self.config=ModelTrainerConfig()
+        self.model_path= os.path.join('artifacts/models',f'{self.league}_model.pkl')
 
     def train_model(self,xtrain,ytrain,xtest,ytest):
 
@@ -40,7 +41,7 @@ class ModelTrainer:
 
 
             if precision >65:
-                save_obj(self.config.model_path,model)
+                save_obj(self.model_path,model)
                 logging.info(f'data model object saving completed with a precision of {precision} and accuracy of {accuracy}')
 
             return model

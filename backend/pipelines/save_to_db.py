@@ -31,3 +31,8 @@ class Prediction(Base):
     
 
 engine=create_engine('sqlite:///predict.db',echo=True)
+
+Base.metadata.create_all(bind=engine)
+
+Session=sessionmaker(bind=engine)
+session =Session()

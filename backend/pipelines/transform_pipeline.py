@@ -18,16 +18,18 @@ from backend.utils import save_obj
 
 @dataclass
 class FitTransformConfig:
-    numerical_columns = ["b365h", "b365d", "b365a",'b365>2.5','b365<2.5']
+    numerical_columns = ["b365h", "b365d", "b365a"]
     categorical_columns = ["hometeam", "awayteam"]
-    processor_path= os.path.join('artifacts/models','preprocessor.pkl')
+    
     os.makedirs('artifacts/models',exist_ok=True)
 
 
 
 class FitTransform:
-    def __init__(self) -> None:
+    def __init__(self,league) -> None:
         self.config = FitTransformConfig()
+        self.league=league
+        self.processor_path= os.path.join('artifacts/models',f'{self.league}_preprocessor.pkl')
 
     def fit_transform_data(self):
        
@@ -52,7 +54,7 @@ class FitTransform:
                     ("cat_pipelines", cat_pipeline, self.config.categorical_columns),
                 ]
             )
-            save_obj(self.config.processor_path,preprocessor)
+            save_obj(self.processor_path,preprocessor)
 
             logging.info('pipeline fitting completed')
             return preprocessor

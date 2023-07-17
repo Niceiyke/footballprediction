@@ -11,10 +11,7 @@ from backend.components.modelTrainer import ModelTrainer
 
 @dataclass
 class DataTransformationConfig:
-    preprocessor = FitTransform()
-    preprocessor = preprocessor.fit_transform_data()
-
-    modeltrainer = ModelTrainer()
+    
     train_data = os.path.join("artifacts", "train.csv")
     test_data = os.path.join("artifacts", "test.csv")
     predictors = [
@@ -23,13 +20,13 @@ class DataTransformationConfig:
         "b365h",
         "b365d",
         "b365a",
-        'b365>2.5','b365<2.5'
     ]
     target = ["target"]
 
 
 class DataTransformation:
-    def __init__(self):
+    def __init__(self,league):
+        self.league=league
         self.config = DataTransformationConfig()
         self.labels = [
             "hometeam",
@@ -37,9 +34,11 @@ class DataTransformation:
             "b365h",
             "b365d",
             "b365a",
-            'b365>2.5','b365<2.5',
             "ftr",
         ]
+        self.modeltrainer = ModelTrainer(self.league)
+        preprocessor = FitTransform(self.league)
+        self.preprocessor = preprocessor.fit_transform_data()
 
     def process_data(self, train_df, test_df):
         try:
@@ -73,11 +72,11 @@ class DataTransformation:
             xtest = test[self.config.predictors]
             ytest = test[self.config.target]
 
-            xtrain_df = self.config.preprocessor.fit_transform(xtrain)
-            xtest_df = self.config.preprocessor.transform(xtest)
+            xtrain_df = self.preprocessor.fit_transform(xtrain)
+            xtest_df = self.preprocessor.transform(xtest)
             logging.info('data transform completed')
 
-            self.config.modeltrainer.train_model(
+            self.modeltrainer.train_model(
                 xtrain=xtrain_df, ytrain=ytrain, xtest=xtest_df, ytest=ytest
             )
 

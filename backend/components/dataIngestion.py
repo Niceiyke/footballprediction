@@ -9,23 +9,25 @@ from backend.components.datatransformation import DataTransformation
 
 @dataclass
 class DataIngestionConfig:
-    data_transform = DataTransformation()
+    
     train_data_path = os.path.join("artifacts", "train.csv")
     test_data_path = os.path.join("artifacts", "test.csv")
     os.makedirs("artifacts", exist_ok=True)
 
 
 class DataIngestion:
-    def __init__(self):
+    def __init__(self,league):
         self.config = DataIngestionConfig()
+        self.league=league
+        self.data_transform = DataTransformation(self.league)
+
 
     def initiate_data_ingestion(self):
        
        try:
             logging.info('dataingestion initiated')
 
-            df = pd.read_csv(
-                "datasets/epl .csv",
+            df = pd.read_csv(f"datasets/{self.league}.csv",
                 low_memory=False,
             )
 
@@ -40,7 +42,7 @@ class DataIngestion:
 
             logging.info('dataingestion completed')
 
-            self.config.data_transform.process_data(train_df=train, test_df=test)
+            self.data_transform.process_data(train_df=train, test_df=test)
 
             return train,test
        
