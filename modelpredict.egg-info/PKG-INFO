@@ -3,3 +3,7 @@ Name: modelpredict
 Version: 0.0.1
 Author: niceiyke
 Author-email: niceiyke04@gmail.com
+Requires-Dist: pandas
+Requires-Dist: numpy
+Requires-Dist: scikit-learn
+Requires-Dist: dill
